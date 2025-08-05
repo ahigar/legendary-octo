@@ -1,0 +1,47 @@
+# Ensure FFmpeg is installed. If not, you can install it using Homebrew
+
+# Navigate to the folder containing the files you want to watermark:
+cd /path/to/your/folder
+
+# Copy and paste the following script into your terminal once you are in the folder, replacing appropriate file path:
+
+#!/bin/bash
+
+copyright="INPUT_PATH_TO_COPYRIGHT_NOTICE"
+
+for target in *.mkv; do
+  base="${target%.*}"
+  output="${base}_watermarked.mp4"
+
+  ffmpeg -i "$target" \
+         -i "$copyright" \
+         -filter_complex "[0:v]setsar=10/11,fps=29.97,drawtext=text='University of Washington Libraries, Special Collections':fontcolor=white:fontsize=12:x=10:y=h-th-40:shadowx=2:shadowy=2:fontfile='/System/Library/Fonts/Supplemental/Verdana Bold.ttf'[main]; \
+                          [1:v]setsar=10/11,fps=29.97[intro]; \
+                          [intro][main]concat=n=2:v=1:a=0[outv]; \
+                          [1:a][0:a]concat=n=2:v=0:a=1[outa]" \
+         -map "[outv]" -map "[outa]" \
+         -c:v libx264 -crf 18 -preset veryfast \
+         -c:a aac -b:a 128k "$output"
+done
+
+# Example with actual paths:
+# Below is an example of how your script might look once you've set the correct path:
+
+#!/bin/bash
+
+copyright="/Users/ashlynhigareda/Desktop/Copyright-cropped-10-11.mov"
+
+for target in *.mkv; do
+  base="${target%.*}"
+  output="${base}_watermarked.mp4"
+
+  ffmpeg -i "$target" \
+         -i "$copyright" \
+         -filter_complex "[0:v]setsar=10/11,fps=29.97,drawtext=text='University of Washington Libraries, Special Collections':fontcolor=white:fontsize=12:x=10:y=h-th-40:shadowx=2:shadowy=2:fontfile='/System/Library/Fonts/Supplemental/Verdana Bold.ttf'[main]; \
+                          [1:v]setsar=10/11,fps=29.97[intro]; \
+                          [intro][main]concat=n=2:v=1:a=0[outv]; \
+                          [1:a][0:a]concat=n=2:v=0:a=1[outa]" \
+         -map "[outv]" -map "[outa]" \
+         -c:v libx264 -crf 18 -preset veryfast \
+         -c:a aac -b:a 128k "$output"
+done
