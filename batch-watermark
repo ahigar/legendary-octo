@@ -6,6 +6,8 @@ cd /path/to/your/folder
 
 # Copy and paste the following script into your terminal once you are in the folder, replacing appropriate file path:
 
+#!/bin/bash
+
 copyright="INPUT_PATH_TO_COPYRIGHT_NOTICE"
 
 for target in *.mkv; do
@@ -25,6 +27,8 @@ done
 
 # Example with actual paths:
 # Below is an example of how your script might look once you've set the correct path:
+
+#!/bin/bash
 
 copyright="/Users/ashlynhigareda/Desktop/Copyright-cropped-10-11.mov"
 
