@@ -1,11 +1,10 @@
 # Ensure FFmpeg is installed. If not, you can install it using Homebrew
+brew install ffmpeg
 
 # Navigate to the folder containing the files you want to watermark:
 cd /path/to/your/folder
 
 # Copy and paste the following script into your terminal once you are in the folder, replacing appropriate file path:
-
-#!/bin/bash
 
 copyright="INPUT_PATH_TO_COPYRIGHT_NOTICE"
 
@@ -26,8 +25,6 @@ done
 
 # Example with actual paths:
 # Below is an example of how your script might look once you've set the correct path:
-
-#!/bin/bash
 
 copyright="/Users/ashlynhigareda/Desktop/Copyright-cropped-10-11.mov"
 
